@@ -15,26 +15,47 @@ Game::Game()
 	g_Game = this;
 }
 
+Game::~Game()
+{
+	for (auto& object : objects) {
+		delete(object);
+	}
+}
+
 void Game::OnUpdate(float dt)
 {
 	PIXScopedEvent(PIX_COLOR_INDEX(5), __FUNCTION__);
-	for (auto obj : objects)
-		if (!obj->disabled)
-			obj->Update(dt);
+	for (auto& object : objects)
+		if (!object->disabled)
+			object->Update(dt);
 }
 
 void Game::OnRender() const
 {
-	for (auto obj : objects)
-		if (obj->visible)
-			DoRender(obj);
+	for (auto& object : objects)
+		if (object->visible)
+			DoRender(object);
 }
 
 void Game::AddObject(GameObject* object)
 {
-	objects.push_back(object);
-	if (object->GetRTTI() == Bug::s_RTTI)
+	if (object->GetRTTI() == Bug::s_RTTI) {
+
+		object->visible = true;
+		object->disabled = false;
 		Log("I'm a bug");
+
+	}
+
+	else if (object->GetRTTI() == Bullet::s_RTTI) {
+
+		object->visible = true;
+		object->disabled = false;
+		Log("I'm a bullet");
+
+	}
+
+	objects.push_back(object);
 }
 
 void Game::OnBugsSpawned()

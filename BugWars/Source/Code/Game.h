@@ -8,6 +8,8 @@ struct Game : public GameBase
 {
 	Game();
 
+	virtual ~Game();
+
 	virtual void OnUpdate(float dt) override;
 	virtual void OnRender() const override;
 	virtual void AddObject(GameObject* object) override;

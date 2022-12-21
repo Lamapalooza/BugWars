@@ -3,6 +3,9 @@
 
 struct Bug : public BugBase
 {
+
+	Bug();
+
 	DEFINE_RTTI;
 
 	virtual void OnUpdate(float dt) override;

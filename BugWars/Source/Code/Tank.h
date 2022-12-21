@@ -3,6 +3,8 @@
 
 struct Tank : public TankBase
 {
+	Tank();
+
 	DEFINE_RTTI;
 
 	virtual void OnUpdate(float dt) override;
